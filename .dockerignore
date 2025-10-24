@@ -1,0 +1,52 @@
+# Don't copy these to Docker image
+
+.git
+.gitignore
+.env
+*.md
+LICENSE
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+env/
+ENV/
+
+# Uploads (mounted as volume)
+uploads/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Credentials (should be mounted)
+client_secret.json
+token.json
+token.pickle
+
+# IPFS (created in container)
+.ipfs/
+
+# SSL
+ssl/
+
+# Logs
+*.log
+logs/
+
+# Tests
+test_*.py
+tests/
+
+# CI/CD
+.github/
+.gitlab-ci.yml

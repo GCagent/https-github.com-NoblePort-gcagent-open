@@ -48,6 +48,3 @@ logs/
 
 # Backups
 backups/
-
-# Docker
-.dockerignore
