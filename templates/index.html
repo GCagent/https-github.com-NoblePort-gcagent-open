@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual-Platform Video Uploader - NoblePort Systems</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎥 Dual-Platform Video Uploader</h1>
+            <p class="subtitle">NoblePort Systems - Upload to YouTube & DTube</p>
+        </header>
+
+        <div class="content">
+            <!-- Copyright Policy Comparison -->
+            <section class="policy-comparison">
+                <h2>📋 Copyright Policy Comparison</h2>
+                <button id="showComparison" class="btn btn-secondary">Show Detailed Comparison</button>
+
+                <div id="comparisonPanel" class="comparison-panel" style="display: none;">
+                    <div class="platform-cards">
+                        <div class="platform-card youtube-card">
+                            <h3>YouTube</h3>
+                            <div class="risk-badge high">HIGH RISK</div>
+                            <ul class="policy-list">
+                                <li>✅ Automated Content ID scanning</li>
+                                <li>⚠️ Immediate blocking possible</li>
+                                <li>⚠️ Channel strikes for violations</li>
+                                <li>⚠️ Fair use claims may be flagged</li>
+                                <li>💰 Monetization may be diverted</li>
+                            </ul>
+                        </div>
+
+                        <div class="platform-card dtube-card">
+                            <h3>DTube</h3>
+                            <div class="risk-badge low">LOW RISK</div>
+                            <ul class="policy-list">
+                                <li>✅ No automated scanning</li>
+                                <li>✅ Content rarely auto-blocked</li>
+                                <li>⚠️ Still legally liable</li>
+                                <li>⚠️ DMCA claims still possible</li>
+                                <li>🔒 Decentralized storage</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h4>Recommendations:</h4>
+                        <ul>
+                            <li><strong>Original Content:</strong> Safe for both platforms</li>
+                            <li><strong>Remixes/Compilations:</strong> DTube (but legally risky)</li>
+                            <li><strong>Monetization:</strong> YouTube (if original content)</li>
+                            <li><strong>Lowest Takedown Risk:</strong> DTube</li>
+                            <li><strong>Most Professional:</strong> YouTube</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Form -->
+            <section class="upload-section">
+                <h2>📤 Upload Video</h2>
+
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <!-- Platform Selection -->
+                    <div class="form-group">
+                        <label>Select Platform(s)</label>
+                        <div class="platform-checkboxes">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platform" value="youtube" checked>
+                                <span>YouTube</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platform" value="dtube">
+                                <span>DTube</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Video File -->
+                    <div class="form-group">
+                        <label for="videoFile">Video File *</label>
+                        <input type="file" id="videoFile" name="video" accept="video/*" required>
+                        <small>Supported formats: MP4, AVI, MOV, MKV, WebM, FLV (Max: 5GB)</small>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label for="title">Title *</label>
+                        <input type="text" id="title" name="title" required placeholder="Enter video title">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Enter video description"></textarea>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" id="tags" name="tags" placeholder="tag1, tag2, tag3">
+                        <small>Comma-separated tags</small>
+                    </div>
+
+                    <!-- YouTube-specific options -->
+                    <div id="youtubeOptions" class="youtube-options">
+                        <h3>YouTube Options</h3>
+
+                        <div class="form-group">
+                            <label for="privacy">Privacy</label>
+                            <select id="privacy" name="privacy">
+                                <option value="private" selected>Private</option>
+                                <option value="unlisted">Unlisted</option>
+                                <option value="public">Public</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category">
+                                <option value="22" selected>People & Blogs</option>
+                                <option value="1">Film & Animation</option>
+                                <option value="2">Autos & Vehicles</option>
+                                <option value="10">Music</option>
+                                <option value="15">Pets & Animals</option>
+                                <option value="17">Sports</option>
+                                <option value="19">Travel & Events</option>
+                                <option value="20">Gaming</option>
+                                <option value="23">Comedy</option>
+                                <option value="24">Entertainment</option>
+                                <option value="25">News & Politics</option>
+                                <option value="26">Howto & Style</option>
+                                <option value="27">Education</option>
+                                <option value="28">Science & Technology</option>
+                                <option value="29">Nonprofits & Activism</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            Upload Video
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Progress -->
+                <div id="uploadProgress" class="upload-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">Uploading...</p>
+                </div>
+
+                <!-- Results -->
+                <div id="uploadResults" class="upload-results" style="display: none;"></div>
+            </section>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 NoblePort Systems - NoblePort.eth</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
