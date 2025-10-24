@@ -1,0 +1,36 @@
+[Unit]
+Description=Dual-Platform Video Uploader - NoblePort Systems
+After=network.target ipfs.service
+Wants=ipfs.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/video-uploader
+Environment="PATH=/var/www/video-uploader/venv/bin"
+EnvironmentFile=/var/www/video-uploader/.env
+ExecStart=/var/www/video-uploader/venv/bin/gunicorn \
+    --config /var/www/video-uploader/gunicorn.conf.py \
+    wsgi:app
+
+# Restart policy
+Restart=always
+RestartSec=10
+StartLimitBurst=5
+StartLimitInterval=60
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/video-uploader/uploads
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=video-uploader
+
+[Install]
+WantedBy=multi-user.target

@@ -32,7 +32,43 @@ A comprehensive application for uploading videos to both YouTube and DTube with 
 - **Blocking**: Rare - content remains unless legally reported
 - **Consequences**: Legal liability remains, but less platform interference
 
-## Installation
+## Installation & Deployment
+
+### Quick Start (Development)
+
+```bash
+# Clone the repository
+git clone https://github.com/NoblePort/gcagent-open.git
+cd gcagent-open
+
+# Run quick start script
+./quickstart.sh
+
+# Start the application
+python app.py
+```
+
+### Production Deployment
+
+For production deployments, see [DEPLOYMENT.md](DEPLOYMENT.md) for complete instructions.
+
+#### Docker Deployment (Recommended)
+
+```bash
+# Deploy with Docker Compose
+./deployment/docker-deploy.sh
+
+# Access at http://localhost
+```
+
+#### Traditional Linux Deployment
+
+```bash
+# Automated deployment
+sudo bash deployment/deploy.sh
+
+# Application will be available at http://your-server-ip/
+```
 
 ### Prerequisites
 
@@ -49,20 +85,6 @@ A comprehensive application for uploading videos to both YouTube and DTube with 
    - Enable YouTube Data API v3
    - Create OAuth 2.0 credentials
    - Download `client_secret.json`
-
-### Install Dependencies
-
-```bash
-# Clone the repository
-git clone https://github.com/NoblePort/gcagent-open.git
-cd gcagent-open
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Create environment file
-cp .env.example .env
-```
 
 ### Configuration
 

@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  video-uploader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: video-uploader
+    restart: unless-stopped
+    ports:
+      - "5000:5000"  # Flask app
+      - "5001:5001"  # IPFS API
+      - "8080:8080"  # IPFS Gateway
+    volumes:
+      - ./uploads:/app/uploads
+      - ./client_secret.json:/app/client_secret.json:ro
+      - ./token.pickle:/app/token.pickle
+      - ipfs-data:/home/appuser/.ipfs
+    environment:
+      - FLASK_ENV=production
+      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY}
+      - YOUTUBE_CLIENT_ID=${YOUTUBE_CLIENT_ID}
+      - YOUTUBE_CLIENT_SECRET=${YOUTUBE_CLIENT_SECRET}
+      - DTUBE_USERNAME=${DTUBE_USERNAME}
+      - DTUBE_PRIVATE_KEY=${DTUBE_PRIVATE_KEY}
+      - IPFS_HOST=127.0.0.1
+      - IPFS_PORT=5001
+      - UPLOAD_FOLDER=/app/uploads
+      - MAX_FILE_SIZE=5368709120
+    env_file:
+      - .env
+    networks:
+      - video-uploader-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  nginx:
+    image: nginx:alpine
+    container_name: video-uploader-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deployment/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - video-uploader
+    networks:
+      - video-uploader-network
+
+networks:
+  video-uploader-network:
+    driver: bridge
+
+volumes:
+  ipfs-data:
+    driver: local

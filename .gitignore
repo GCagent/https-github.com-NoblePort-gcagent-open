@@ -31,4 +31,23 @@ Thumbs.db
 # Credentials
 credentials.json
 token.json
+token.pickle
 client_secret*.json
+
+# IPFS
+.ipfs/
+
+# SSL certificates
+ssl/*.pem
+ssl/*.key
+ssl/*.crt
+
+# Logs
+*.log
+logs/
+
+# Backups
+backups/
+
+# Docker
+.dockerignore
