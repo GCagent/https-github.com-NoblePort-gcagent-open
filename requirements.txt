@@ -1,0 +1,20 @@
+# Video Upload Application Dependencies
+
+# Web Framework
+flask==3.0.0
+flask-cors==4.0.0
+
+# YouTube API
+google-api-python-client==2.108.0
+google-auth-oauthlib==1.2.0
+google-auth-httplib2==0.2.0
+
+# IPFS for DTube
+ipfshttpclient==0.8.0a2
+
+# Video Processing
+moviepy==1.0.3
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0

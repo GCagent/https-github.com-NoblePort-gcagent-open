@@ -1,0 +1,20 @@
+# Production requirements for Dual-Platform Video Uploader
+# Includes all base requirements plus production-specific packages
+
+# Include base requirements
+-r requirements.txt
+
+# Production WSGI server
+gunicorn==21.2.0
+
+# Async worker support
+gevent==23.9.1
+
+# Production monitoring and logging
+sentry-sdk[flask]==1.39.1
+
+# Security
+python-dotenv==1.0.0
+
+# Performance
+redis==5.0.1

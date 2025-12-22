@@ -1,0 +1,50 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Uploads
+uploads/
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Credentials
+credentials.json
+token.json
+token.pickle
+client_secret*.json
+
+# IPFS
+.ipfs/
+
+# SSL certificates
+ssl/*.pem
+ssl/*.key
+ssl/*.crt
+
+# Logs
+*.log
+logs/
+
+# Backups
+backups/
