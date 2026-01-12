@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTube Easy Connection - NoblePort Systems</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>🌐 DTube Easy Connection</h1>
+                <p class="subtitle">NoblePort Systems - Decentralized Video Platform</p>
+            </div>
+            <div class="status-bar" id="statusBar">
+                <div class="status-item">
+                    <span class="status-label">IPFS:</span>
+                    <span class="status-value" id="ipfsStatus">Disconnected</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Account:</span>
+                    <span class="status-value" id="accountStatus">Not Connected</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Connection Setup -->
+            <section id="connectionSection" class="card">
+                <h2>🔌 Connect to DTube</h2>
+
+                <!-- IPFS Connection -->
+                <div class="connection-box">
+                    <h3>Step 1: Connect to IPFS</h3>
+                    <p class="help-text">Make sure IPFS daemon is running: <code>ipfs daemon</code></p>
+
+                    <div class="input-group">
+                        <input type="text" id="ipfsHost" value="127.0.0.1" placeholder="IPFS Host">
+                        <input type="text" id="ipfsPort" value="5001" placeholder="Port">
+                        <button onclick="connectIPFS()" class="btn btn-primary" id="ipfsConnectBtn">
+                            Connect IPFS
+                        </button>
+                    </div>
+                    <div id="ipfsMessage" class="message"></div>
+                </div>
+
+                <!-- Account Connection -->
+                <div class="connection-box" id="accountBox">
+                    <h3>Step 2: Connect Your DTube Account</h3>
+                    <p class="help-text">Enter your DTube username and private key (optional)</p>
+
+                    <div class="form-group">
+                        <label for="dtubeUsername">DTube Username *</label>
+                        <input type="text" id="dtubeUsername" placeholder="your-username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dtubePrivateKey">Private Key (Optional)</label>
+                        <input type="password" id="dtubePrivateKey" placeholder="Your private key (for publishing)">
+                        <small>Leave empty for view-only mode</small>
+                    </div>
+
+                    <button onclick="connectAccount()" class="btn btn-success" id="accountConnectBtn">
+                        Connect Account
+                    </button>
+
+                    <div id="accountMessage" class="message"></div>
+                </div>
+
+                <!-- Quick Info -->
+                <div class="info-box">
+                    <h4>ℹ️ About DTube</h4>
+                    <ul>
+                        <li><strong>Decentralized:</strong> Videos stored on IPFS, metadata on Avalon blockchain</li>
+                        <li><strong>No Censorship:</strong> No automated content scanning or blocking</li>
+                        <li><strong>Crypto Rewards:</strong> Earn DTC tokens through engagement</li>
+                        <li><strong>You Own Your Content:</strong> True ownership via blockchain</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Upload Section -->
+            <section id="uploadSection" class="card" style="display: none;">
+                <h2>📤 Upload Video to DTube</h2>
+
+                <div class="connected-info">
+                    <p>✅ Connected as: <strong id="connectedUsername"></strong></p>
+                    <button onclick="disconnect()" class="btn btn-secondary btn-sm">Disconnect</button>
+                </div>
+
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="videoFile">Video File *</label>
+                        <input type="file" id="videoFile" accept="video/*" required>
+                        <small>Supported: MP4, AVI, MOV, MKV, WebM, FLV (Max 5GB)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Title *</label>
+                        <input type="text" id="title" placeholder="Enter video title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="4" placeholder="Enter video description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" id="tags" placeholder="crypto, blockchain, tutorial">
+                        <small>Comma-separated tags</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        Upload to DTube
+                    </button>
+                </form>
+
+                <!-- Upload Progress -->
+                <div id="uploadProgress" class="upload-progress" style="display: none;">
+                    <h3>Uploading...</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">Preparing upload...</p>
+                </div>
+
+                <!-- Upload Result -->
+                <div id="uploadResult" class="upload-result" style="display: none;"></div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>No Censorship</h3>
+                    <p>No automated scanning or content blocking. Your videos stay up.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Earn Crypto</h3>
+                    <p>Get rewarded in DTC tokens for views and engagement.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Decentralized</h3>
+                    <p>Videos on IPFS, metadata on blockchain. True ownership.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Easy Upload</h3>
+                    <p>Simple interface for connecting and uploading videos.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 NoblePort Systems - NoblePort.eth</p>
+            <p><a href="https://d.tube" target="_blank">Visit DTube</a> | <a href="https://docs.ipfs.io" target="_blank">IPFS Docs</a></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
