@@ -4,6 +4,28 @@
 
 A comprehensive application for uploading videos to both YouTube and DTube with built-in copyright policy awareness and comparison.
 
+## 🚀 NEW: DTube Easy Connection App
+
+**Looking for a simple, DTube-only solution?**
+
+Check out our **[DTube Easy Connection App](dtube-app/)** - a streamlined application designed specifically for easy DTube uploads:
+
+```bash
+cd dtube-app
+./launch.sh
+# Access at http://localhost:5001
+```
+
+**Perfect for:**
+- Users who only want DTube uploads
+- Simple, quick setup (3 minutes)
+- No complex configuration
+- Beautiful, intuitive interface
+
+See [dtube-app/QUICKSTART.md](dtube-app/QUICKSTART.md) for details.
+
+---
+
 ## Features
 
 - **Dual-Platform Support**: Upload to YouTube and/or DTube simultaneously
